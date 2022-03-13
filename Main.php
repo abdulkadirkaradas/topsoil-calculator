@@ -104,11 +104,13 @@
 
 <script>
     $(document).ready(function() {
+        var $basketIcon = $(".basket-icon");
         var $quantityOfBags = $(".quantity-of-bag");
         var $costOfTopsoil = $(".cost-of-topsoil");
+        var addToBasketStatus = false;
         var quantityOfBags = null;
         var totalCostOfTopsoil = null;
-        var lastInsertedId = null;
+        var lastInsertId = null;
 
         $(".calculate-button").on("click", function() {
             var unitType = $("#measurementUnit option:selected").val();
@@ -133,14 +135,36 @@
                         response = $.parseJSON(response);
                         quantityOfBags = response.quantityOfBags;
                         totalCostOfTopsoil = response.totalCostOfTopSoil;
-                        lastInsertedId = response.lastInsertedId;
+                        lastInsertId = response.lastInsertId;
                         $quantityOfBags.text(quantityOfBags);
                         $costOfTopsoil.text("£" + totalCostOfTopsoil);
-
+                        addToBasketStatus = true;
                     }
                 });
             } else {
                 alert("Please do not leave any spaces.");
+            }
+        });
+
+        $(".add-to-basket-button").on("click", function() {
+            if(addToBasketStatus == true) {
+                $.ajax({
+                    type: "POST",
+                    url: "handleBasketRequest.php",
+                    data: {
+                        type: "basket",
+                        quantityOfBags: quantityOfBags,
+                        totalCostOfTopsoil: totalCostOfTopsoil,
+                        lastInsertId: lastInsertId
+                    },
+                    success: function(response) {
+                        response = $.parseJSON(response);
+                        $basketIcon.text("Basket: " + response.basketItemCount);
+
+                    }
+                });
+            } else {
+                alert("Please first use calculator.");
             }
         });
     });

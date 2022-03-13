@@ -34,6 +34,15 @@
         {
             return $this->dbh->lastInsertId();
         }
+
+        public function getRecordCountFromBasketTable()
+        {
+            $q = $this->dbh->query(
+                "SELECT COUNT(*) FROM basket"
+            );
+            
+            return $q->fetchColumn();
+        }
     }
 
 ?>

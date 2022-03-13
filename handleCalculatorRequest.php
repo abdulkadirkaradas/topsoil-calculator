@@ -5,7 +5,7 @@
 
     $measurement = new Measurement();
 
-    if($_POST["type"] == "calculator") {
+    if(isset($_POST["type"])) {
         $unitType = $_POST["unitType"];
         $depthType = $_POST["depthType"];
         $width = $_POST["width"];
