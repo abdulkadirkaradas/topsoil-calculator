@@ -10,8 +10,8 @@
 
         function __construct()
         {
-            $host = "";
-            $database = "";
+            $host = "mysql:host=localhost;";
+            $database = "dbname=bags;";
             $dsn = $host.$database;
             $user = "root";
             $password = "";
