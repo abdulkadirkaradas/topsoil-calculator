@@ -29,6 +29,11 @@
         {
             $this->dbh->exec($query);
         }
+
+        public function getLastInsertId()
+        {
+            return $this->dbh->lastInsertId();
+        }
     }
 
 ?>
