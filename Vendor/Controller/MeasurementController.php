@@ -9,6 +9,11 @@
 
     class Measurement
     {
+        private $unitType;
+        private $depthType;
+        private $width;
+        private $length;
+        private $depth;
         private $converter;
         private $dbh;
 
@@ -20,7 +25,7 @@
 
         public function setMeasurementUnit($unitType, $depthType, $width, $length, $depth)
         {
-
+            
         }
 
         private function setDepthMeasurementUnit($depthType, $width, $length, $depth)
@@ -40,7 +45,7 @@
 
         public function saveResults($query)
         {
-            
+
         }
     }
 
