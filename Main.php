@@ -103,7 +103,47 @@
 </html>
 
 <script>
+    $(document).ready(function() {
+        var $quantityOfBags = $(".quantity-of-bag");
+        var $costOfTopsoil = $(".cost-of-topsoil");
+        var quantityOfBags = null;
+        var totalCostOfTopsoil = null;
+        var lastInsertedId = null;
 
+        $(".calculate-button").on("click", function() {
+            var unitType = $("#measurementUnit option:selected").val();
+            var depthType = $("#depthUnit option:selected").val();
+            var width = $("#width").val();
+            var length = $("#length").val();
+            var depth = $("#depth").val();
+
+            if(unitType && depthType && width && length && depth) {
+                $.ajax({
+                    type: "POST",
+                    url: "handleCalculatorRequest.php",
+                    data: {
+                        type: "calculator",
+                        unitType: unitType,
+                        depthType: depthType,
+                        width: width,
+                        length: length,
+                        depth: depth
+                    },
+                    success: function(response) {
+                        response = $.parseJSON(response);
+                        quantityOfBags = response.quantityOfBags;
+                        totalCostOfTopsoil = response.totalCostOfTopSoil;
+                        lastInsertedId = response.lastInsertedId;
+                        $quantityOfBags.text(quantityOfBags);
+                        $costOfTopsoil.text("£" + totalCostOfTopsoil);
+
+                    }
+                });
+            } else {
+                alert("Please do not leave any spaces.");
+            }
+        });
+    });
 </script>
 
 <style>

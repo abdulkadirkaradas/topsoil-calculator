@@ -1,11 +1,11 @@
 <?php
     namespace Vendor\Controllers;
 
-    require "../candidateTest/Vendor/Controllers/ConversationController.php";
-    require "../candidateTest/Database/Connection/Connection.php";
+    require "../topsoilCalculator/Vendor/Controller/ConversionController.php";
+    require "../topsoilCalculator/Database/Connection/Connection.php";
 
     use Database\Connection\Connection;
-    use Vendor\Controllers\Conversation;
+    use Vendor\Controllers\Conversion;
 
     class Measurement
     {
@@ -44,7 +44,7 @@
             } else {
                 $this->width = $this->converter->measurementConverter($this->unitType, "metres", $width);
                 $this->length = $this->converter->measurementConverter($this->unitType, "metres", $length);
-                $this->depth = $this->converter->measurementConverter($this->unitType, "metres", $depth);
+                $this->depth = $this->converter->measurementConverter($this->depthType, "metres", $depth);
             }
 
             $query = 
